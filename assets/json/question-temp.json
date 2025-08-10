@@ -6,18 +6,18 @@
                 "list"   : [
                     {
                         "name" : "Aoi",
-                        "faded_link" : "/assets/images/1/Faded_Aoi.png",
-                        "full_link" : "/assets/images/1/Full_Aoi.png"
+                        "faded_link" : "assets/images/1/Faded_Aoi.png",
+                        "full_link" : "assets/images/1/Full_Aoi.png"
                     },
                     {
                         "name" : "Yorupi",
-                        "faded_link" : "/assets/images/1/Faded_Yorupi.png",
-                        "full_link" : "/assets/images/1/Full_Yorupi.png"
+                        "faded_link" : "assets/images/1/Faded_Yorupi.png",
+                        "full_link" : "assets/images/1/Full_Yorupi.png"
                     },
                     {
                         "name" : "Yulia",
-                        "faded_link" : "/assets/images/1/Faded_Yulia.png",
-                        "full_link" : "/assets/images/1/Full_Yulia.png"
+                        "faded_link" : "assets/images/1/Faded_Yulia.png",
+                        "full_link" : "assets/images/1/Full_Yulia.png"
                     }
                 ]
             }
@@ -28,13 +28,13 @@
                 "list"   : [
                     {
                         "name" : "Keiko",
-                        "faded_link" : "/assets/images/2/Faded_Keiko.png",
-                        "full_link" : "/assets/images/2/Full_Keiko.png"
+                        "faded_link" : "assets/images/2/Faded_Keiko.png",
+                        "full_link" : "assets/images/2/Full_Keiko.png"
                     },
                     {
                         "name" : "Uta",
-                        "faded_link" : "/assets/images/2/Faded_Uta.png",
-                        "full_link" : "/assets/images/2/Full_Uta.png"
+                        "faded_link" : "assets/images/2/Faded_Uta.png",
+                        "full_link" : "assets/images/2/Full_Uta.png"
                     }
                 ]
             }
@@ -45,13 +45,13 @@
                 "list"   : [
                     {
                         "name" : "Miku",
-                        "faded_link" : "/assets/images/3/Faded_Miku.png",
-                        "full_link" : "/assets/images/3/Full_Miku.png"
+                        "faded_link" : "assets/images/3/Faded_Miku.png",
+                        "full_link" : "assets/images/3/Full_Miku.png"
                     },
                     {
                         "name" : "Naime",
-                        "faded_link" : "/assets/images/3/Faded_Naime.png",
-                        "full_link" : "/assets/images/3/Full_Naime.png"
+                        "faded_link" : "assets/images/3/Faded_Naime.png",
+                        "full_link" : "assets/images/3/Full_Naime.png"
                     }
                 ]
             }
