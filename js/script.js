@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', event => {
                                                             `+name+`
                                                             <img class="img-fluid rounded mb-5 center thumbnails" src="`+image2+`" alt="..." />
                                                             <button onClick="window.location.reload()" class="btn btn-primary">
-                                                                Next
+                                                                next
                                                             </button>
                                                         </div>
                                                     </div>
@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', event => {
                                     </div>
                                 </div>`;
 
-            ShowTemp = `<button href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">SHOW</a>
+            ShowTemp = `<button href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show</a>
                                             `
 
     
