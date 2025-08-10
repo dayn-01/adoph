@@ -23,6 +23,26 @@ window.addEventListener('DOMContentLoaded', event => {
         return params.type2 || "empty"
     }
 
+    function repeat(parent1, parent2, newnum, length) {
+         
+        if(newnum == parent1 || newnum == parent2) {
+            if (newnum != 0 && newnum != (length - 1)) {
+                 return repeat(parent1, parent2, newnum + 1, length)
+            } else {
+                if(newnum == 0 )
+                    return repeat(parent1, parent2, newnum + 2, length)
+                else if (newnum == (length - 1))
+                    return repeat(parent1, parent2, newnum - 2, length)
+                else {
+                    return repeat(parent1, parent2, newnum - 1, length)
+                }
+            }
+           
+        }
+
+        return newnum;
+    }
+
 
     function StartQuestion() {
         $.getJSON('assets/json/question-temp.json', function(data) {
@@ -42,12 +62,14 @@ window.addEventListener('DOMContentLoaded', event => {
             else
                 listLength;
 
-            if(listLength == prevList2 && listLength != 0) {
-                listLength - 1;
-            } else if (listLength == prevList2 && listLength != 7)
-                listLength + 1;
-            else
-                listLength;
+            if(prevList != "empty") {
+                if(listLength != prevList2 && listLength != prevList) {
+                    listLength;
+                } else {
+                    listLength = repeat(prevList2, prevList, listLength, listChar.length);
+                }
+                    
+            }
 
             var reseturl =  window.location.origin + window.location.pathname;
             var newUrl = "";
@@ -61,6 +83,8 @@ window.addEventListener('DOMContentLoaded', event => {
             }
 
             let getCharInfo = listChar[listLength];
+
+            
             let name = getCharInfo['name'];
             let image1 = getCharInfo['faded_link'];
             let image2 = getCharInfo['full_link'];
@@ -71,7 +95,7 @@ window.addEventListener('DOMContentLoaded', event => {
                                                 <div class="portfolio-item-caption-content text-center text-white">
                                             </div>
                                             <img class="img-fluid rounded mb-5 center thumbnails" src="`+image1+`" alt="..." /> <br>
-                                            
+                                    
                                         </div>
                                     </div>`
 
@@ -82,12 +106,14 @@ window.addEventListener('DOMContentLoaded', event => {
                                             <div class="modal-body text-center pb-5">
                                                 <div class="container">
                                                     <div class="row justify-content-center">
+                                                        
                                                         <div class="col-lg-8">
                                                             `+name+`
                                                             <img class="img-fluid rounded mb-5 center thumbnails" src="`+image2+`" alt="..." />
-                                                            <a href="`+newUrl+`" class="btn btn-primary">
+                                                            <a style="padding-left:5%" href="`+newUrl+`" class="btn btn-outline-primary">
                                                                 next
-                                                            </a> <br> <br>
+                                                            </a>
+                                                            <br><br>
                                                             <a href="`+reseturl+`" class="btn btn-warning">
                                                                 reset
                                                             </a>
@@ -99,10 +125,11 @@ window.addEventListener('DOMContentLoaded', event => {
                                     </div>
                                 </div>`;
 
-            ShowTemp = `<a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show</a>
-                         <a href="`+reseturl+`" class="btn btn-warning">
-                                                                reset
-                                                            </a>`
+            ShowTemp = `
+                        <a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show</a>
+                        <br><br>
+                        <a href="`+reseturl+`" class="btn btn-warning">reset</a>
+                                                            `
 
     
             const boxProper = document.getElementById('img-tarvet-div');  
