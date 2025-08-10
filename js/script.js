@@ -17,10 +17,19 @@ window.addEventListener('DOMContentLoaded', event => {
             newGame = data;
             
             let listChar = data['difficulty']['1']['characters']['list']
-            let listLength = Math.floor(Math.random() * listChar.length);
+            let listLength1 = Math.floor(Math.random() * listChar.length);
+            let listLength2 = Math.floor(Math.random() * listChar.length);
+            let listLength3 = Math.floor(Math.random() * listChar.length);
+            let listLength4 = Math.floor(Math.random() * listChar.length);
+            let listLength5 = Math.floor(Math.random() * listChar.length);
+            
+            function pickRandomFrom(num1, num2, num3, num4, num5) {
+                const numbers = [num1, num2, num3, num4, num5]; 
+                const randomIndex = Math.floor(Math.random() * numbers.length); 
+                return beforeCount = numbers[randomIndex];  
+            }
 
-            let getCharInfo = listChar[listLength]
-
+            let getCharInfo = listChar[pickRandomFrom(listLength1,listLength2,listLength3,listLength4,listLength5)];
             let name = getCharInfo['name'];
             let image1 = getCharInfo['faded_link'];
             let image2 = getCharInfo['full_link'];
