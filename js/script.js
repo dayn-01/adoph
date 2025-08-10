@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', event => {
     let newGame = "";
 
     function StartQuestion() {
-        $.getJSON('/assets/json/question-temp.json', function(data) {
+        $.getJSON('assets/json/question-temp.json', function(data) {
             
             newGame = data;
             
