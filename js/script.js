@@ -59,7 +59,6 @@ window.addEventListener('DOMContentLoaded', event => {
         for (i = 0; i < nameArrLength; i++) {
             if(i != randomAgain && i != randomAgain2 && i != randomAgain3) {
                 nameArray[i] = "_";
-                console.log(nameArray)
             } 
             
         }
