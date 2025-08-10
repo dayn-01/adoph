@@ -11,25 +11,56 @@ window.addEventListener('DOMContentLoaded', event => {
 
     let newGame = "";
 
+    function getQuery(){
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        return params.type || "empty"
+    }
+
+    function getQuery2(){
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        return params.type2 || "empty"
+    }
+
+
     function StartQuestion() {
         $.getJSON('assets/json/question-temp.json', function(data) {
             
+
+            let prevList = getQuery();
+            let prevList2 = getQuery2()
             newGame = data;
             
-            let listChar = data['difficulty']['1']['characters']['list']
-            let listLength1 = Math.floor(Math.random() * listChar.length);
-            let listLength2 = Math.floor(Math.random() * listChar.length);
-            let listLength3 = Math.floor(Math.random() * listChar.length);
-            let listLength4 = Math.floor(Math.random() * listChar.length);
-            let listLength5 = Math.floor(Math.random() * listChar.length);
-            
-            function pickRandomFrom(num1, num2, num3, num4, num5) {
-                const numbers = [num1, num2, num3, num4, num5]; 
-                const randomIndex = Math.floor(Math.random() * numbers.length); 
-                return beforeCount = numbers[randomIndex];  
+            let listChar = data['difficulty']['1']['characters']['list'];
+            let listLength = Math.floor(Math.random() * listChar.length);
+
+            if(listLength == prevList && listLength != 0) {
+                listLength - 1;
+            } else if (listLength == prevList && listLength != 7)
+                listLength + 1;
+            else
+                listLength;
+
+            if(listLength == prevList2 && listLength != 0) {
+                listLength - 1;
+            } else if (listLength == prevList2 && listLength != 7)
+                listLength + 1;
+            else
+                listLength;
+
+            var reseturl =  window.location.origin + window.location.pathname;
+            var newUrl = "";
+
+            if(prevList == "empty") {
+                newUrl = window.location.origin + window.location.pathname + "?type=" + listLength
+            } else if (prevList2 == "empty"){
+                newUrl = window.location.origin + window.location.pathname + "?type=" + prevList + "&type2=" + listLength
+            } else {
+                newUrl = window.location.origin + window.location.pathname
             }
 
-            let getCharInfo = listChar[pickRandomFrom(listLength1,listLength2,listLength3,listLength4,listLength5)];
+            let getCharInfo = listChar[listLength];
             let name = getCharInfo['name'];
             let image1 = getCharInfo['faded_link'];
             let image2 = getCharInfo['full_link'];
@@ -54,9 +85,12 @@ window.addEventListener('DOMContentLoaded', event => {
                                                         <div class="col-lg-8">
                                                             `+name+`
                                                             <img class="img-fluid rounded mb-5 center thumbnails" src="`+image2+`" alt="..." />
-                                                            <button onClick="window.location.reload()" class="btn btn-primary">
+                                                            <a href="`+newUrl+`" class="btn btn-primary">
                                                                 next
-                                                            </button>
+                                                            </a> <br> <br>
+                                                            <a href="`+reseturl+`" class="btn btn-warning">
+                                                                reset
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -65,8 +99,10 @@ window.addEventListener('DOMContentLoaded', event => {
                                     </div>
                                 </div>`;
 
-            ShowTemp = `<button href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show</a>
-                                            `
+            ShowTemp = `<a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show</a>
+                         <a href="`+reseturl+`" class="btn btn-warning">
+                                                                reset
+                                                            </a>`
 
     
             const boxProper = document.getElementById('img-tarvet-div');  
