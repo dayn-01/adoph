@@ -9,22 +9,20 @@
 
 window.addEventListener('DOMContentLoaded', event => {
 
-    let newGame = "";
-
-    function getQuery(){
+    function getQuery(type){
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
-        return params.type || "empty"
-    }
 
-    function getQuery2(){
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const params = Object.fromEntries(urlSearchParams.entries());
+        if(type === 1) {
+            return params.type || "empty"
+        }
+
         return params.type2 || "empty"
-    }
+        
+    } 
 
     function repeat(parent1, parent2, newnum, length) {
-         
+
         if(newnum == parent1 || newnum == parent2) {
             if (newnum != 0 && newnum != (length - 1)) {
                  return repeat(parent1, parent2, newnum + 1, length)
@@ -37,20 +35,44 @@ window.addEventListener('DOMContentLoaded', event => {
                     return repeat(parent1, parent2, newnum - 1, length)
                 }
             }
-           
         }
 
         return newnum;
     }
 
+    function hidename(name) {
+        
+        let nameArray = name.split("");
+        let nameArrLength = nameArray.length;
+        let randomAgain = Math.floor(Math.random() * nameArrLength)
+        let randomAgain2 = randomAgain
+        let randomAgain3 = randomAgain
+
+        if(nameArray.length > 4) {
+            randomAgain2 = Math.floor(Math.random() * nameArrLength)
+        }
+
+        if(nameArray.length > 6) {
+            randomAgain3 = Math.floor(Math.random() * nameArrLength)
+        }
+
+        for (i = 0; i < nameArrLength; i++) {
+            if(i != randomAgain && i != randomAgain2 && i != randomAgain3) {
+                nameArray[i] = "_";
+                console.log(nameArray)
+            } 
+            
+        }
+        
+        return nameArray.join (" ");
+    }
+
 
     function StartQuestion() {
         $.getJSON('assets/json/question-temp.json', function(data) {
-            
 
-            let prevList = getQuery();
-            let prevList2 = getQuery2()
-            newGame = data;
+            let prevList = getQuery(1);
+            let prevList2 = getQuery(2)
             
             let listChar = data['difficulty']['1']['characters']['list'];
             let listLength = Math.floor(Math.random() * listChar.length);
@@ -83,17 +105,16 @@ window.addEventListener('DOMContentLoaded', event => {
             }
 
             let getCharInfo = listChar[listLength];
-
-            
             let name = getCharInfo['name'];
             let image1 = getCharInfo['faded_link'];
             let image2 = getCharInfo['full_link'];
 
+            let nameHidden = hidename(name);
+
             QuestionTemp = `<div class="col-md-4 col-lg-3 mx-auto mb-4">
                                         <div class="portfolio-item mx-auto"  >
-                                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                <div class="portfolio-item-caption-content text-center text-white">
-                                            </div>
+                                            <p>`+nameHidden+`</p>
+                                            
                                             <img class="img-fluid rounded mb-5 center thumbnails" src="`+image1+`" alt="..." /> <br>
                                     
                                         </div>
@@ -108,14 +129,15 @@ window.addEventListener('DOMContentLoaded', event => {
                                                     <div class="row justify-content-center">
                                                         
                                                         <div class="col-lg-8">
-                                                            `+name+`
+                                                            
+                                                             <p>`+name+`</p>
                                                             <img class="img-fluid rounded mb-5 center thumbnails" src="`+image2+`" alt="..." />
                                                             <a style="padding-left:5%" href="`+newUrl+`" class="btn btn-outline-primary">
-                                                                next
+                                                                next character
                                                             </a>
                                                             <br><br>
-                                                            <a href="`+reseturl+`" class="btn btn-warning">
-                                                                reset
+                                                            <a href="`+reseturl+`" class="btn btn-success">
+                                                                completed!
                                                             </a>
                                                         </div>
                                                     </div>
@@ -126,9 +148,9 @@ window.addEventListener('DOMContentLoaded', event => {
                                 </div>`;
 
             ShowTemp = `
-                        <a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show</a>
+                        <a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show image</a>
                         <br><br>
-                        <a href="`+reseturl+`" class="btn btn-warning">reset</a>
+                        <a href="`+reseturl+`" class="btn btn-danger"> game reset </a>
                                                             `
 
     
@@ -143,6 +165,7 @@ window.addEventListener('DOMContentLoaded', event => {
         })
         
     }
+    
 
     StartQuestion();
 });
