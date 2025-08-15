@@ -70,6 +70,8 @@ window.addEventListener('DOMContentLoaded', event => {
     function StartQuestion() {
         $.getJSON('assets/json/question-temp.json', function(data) {
 
+
+            let currentCount = 1; 
             let prevList = getQuery(1);
             let prevList2 = getQuery(2)
             
@@ -92,29 +94,36 @@ window.addEventListener('DOMContentLoaded', event => {
                     
             }
 
+            let getCharInfo = listChar[listLength];
             var reseturl =  window.location.origin + window.location.pathname;
             var newUrl = "";
 
             if(prevList == "empty") {
+                
                 newUrl = window.location.origin + window.location.pathname + "?type=" + listLength
             } else if (prevList2 == "empty"){
+                currentCount = 2;
                 newUrl = window.location.origin + window.location.pathname + "?type=" + prevList + "&type2=" + listLength
             } else {
+                //5 is migu, 4 is uta. forced character on 3rd try
+                let pseudorandom = Math.random() < 0.5 ? 5 : 4;
+                if(pseudorandom != prevList && pseudorandom != prevList2) {
+                    getCharInfo = listChar[pseudorandom]
+                }
+                currentCount = 3;
                 newUrl = window.location.origin + window.location.pathname
             }
 
-            let getCharInfo = listChar[listLength];
             let name = getCharInfo['name'];
             let image1 = getCharInfo['faded_link'];
             let image2 = getCharInfo['full_link'];
-
             let nameHidden = hidename(name);
 
             QuestionTemp = `<div class="col-md-4 col-lg-3 mx-auto mb-4">
                                         <div class="portfolio-item mx-auto"  >
-                                            <p>`+nameHidden+`</p>
+                                            <p style="font-weight: bold">`+nameHidden+`</p>
                                             
-                                            <img class="img-fluid rounded mb-5 center thumbnails" src="`+image1+`" alt="..." /> <br>
+                                            <img style="width: 80%;" class="img-fluid rounded mb-5 center thumbnails" src="`+image1+`" alt="..." /> <br>
                                     
                                         </div>
                                     </div>`
@@ -130,9 +139,11 @@ window.addEventListener('DOMContentLoaded', event => {
                                                         <div class="col-lg-8">
                                                             
                                                              <p>`+name+`</p>
-                                                            <img class="img-fluid rounded mb-5 center thumbnails" src="`+image2+`" alt="..." />
-                                                            <a style="padding-left:5%" href="`+newUrl+`" class="btn btn-outline-primary">
-                                                                next character
+                                                            <img style="width: 80%;" class="img-fluid rounded mb-5 center thumbnails" src="`+image2+`" alt="..." />
+                                                            <a style="padding-left:5%" href="`+newUrl+`" class="`+classBtnName(currentCount)+`">
+                                                                ` +
+                                                                buttonName(currentCount)
+                                                                +`
                                                             </a>
                                                             <br><br>
                                                             <a href="`+reseturl+`" class="btn btn-success">
@@ -146,11 +157,16 @@ window.addEventListener('DOMContentLoaded', event => {
                                     </div>
                                 </div>`;
 
-            ShowTemp = `
-                        <a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show image</a>
+            ShowTemp = `<a href="#" data-bs-toggle="modal" class="btn btn-outline-primary" data-bs-target="#portfolioModal`+name+`">show image</a>
                         <br><br>
-                        <a href="`+reseturl+`" class="btn btn-danger"> game reset </a>
-                                                            `
+                        <a href="`+reseturl+`" class="btn btn-outline-danger"> game reset </a>`;
+
+            StageTemp = `<div class="col-md-4 col-lg-3 mx-auto mb-4">
+                                        <div class="portfolio-item mx-auto"  >
+                                            <p> Tries: `+currentCount+` out of 3</p>
+                                        
+                                        </div>
+                                    </div>`;
 
     
             const boxProper = document.getElementById('img-tarvet-div');  
@@ -161,9 +177,35 @@ window.addEventListener('DOMContentLoaded', event => {
 
             const boxButton = document.getElementById('button-target');  
             boxButton.innerHTML = ShowTemp;
+
+            const stgCount = document.getElementById('stage-count');  
+            stgCount.innerHTML = StageTemp;
         })
         
     }
+
+    function buttonName(num) {
+        if (num == 3) {
+            return 'Reset'
+        }
+        return 'Next'
+    }
+
+    function classBtnName(num) {
+        if (num == 3) {
+            return 'btn btn-danger'
+        }
+        return 'btn btn-outline-primary'
+    }
+
+    function showImage(num, name, reseturl) {
+        if (num == 3) {
+            return 
+        }
+        return 
+    }
+    
+
     
 
     StartQuestion();
